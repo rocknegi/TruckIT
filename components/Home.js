@@ -5,6 +5,7 @@ import { Container, Content, StyleProvider, Button, Text } from 'native-base';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
 import * as Animatable from 'react-native-animatable';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Home extends Component {
 
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: '#9575cd',
     paddingVertical: 15,
-    marginTop: 140,
+    marginTop: 155,
     flexDirection: "row",
     justifyContent: 'space-between',
     width: "100%",
