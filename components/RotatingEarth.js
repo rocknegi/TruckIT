@@ -21,7 +21,7 @@ export default class RotatingEarth extends React.Component {
   render() {
     return (
       <LottieView style={{backgroundColor:'#3490dc',width:'100%'}} source={require('../assets/animations/1055-world-locations.json')} 
-      loop autoSize autoPlay={true}
+      loop={false} autoSize autoPlay={true}
       />
     );
   }
