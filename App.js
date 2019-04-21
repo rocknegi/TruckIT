@@ -4,10 +4,17 @@ if (__DEV__) {
 
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Home from './components/Home';
+import ManagerLogin from "./components/ManagerLogin";
+import DriverLogin from "./components/DriverLogin";
 
 const AppNavigator = createStackNavigator({
-  Home:Home
+  home:Home,
+  managerLogin:ManagerLogin,
+  driverLogin:DriverLogin
+
+
 },{
+  initialRouteName:'home',
   headerMode:"none"
 }
 )
