@@ -1,77 +1,119 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View } from 'react-native';
-import MapView,{Marker} from 'react-native-maps';
+import { AppRegistry, StyleSheet, View, Dimensions,TextInput } from 'react-native';
+import MapView, { PROVIDER_GOOGLE,Callout } from 'react-native-maps';
+import RetroMapStyles from './RetroMapStyles.json';
+import { Container, Content } from 'native-base';
+let { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 0;
+const LONGITUDE = 0;
+const LATITUDE_DELTA= 0.0922;
+const LONGITUDE_DELTA = 0.0421;
 
-export default class testCoords extends Component {
-  state = {
-    mapRegion: null,
-    lastLat: null,
-    lastLong: null,
-  }
-
-  componentDidMount() {
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      // Create the object to update this.state.mapRegion through the onRegionChange function
-      let region = {
-        latitude:       position.coords.latitude,
-        longitude:      position.coords.longitude,
-        latitudeDelta:  0.00922*1.5,
-        longitudeDelta: 0.00421*1.5
+export default class MapExample extends Component {
+  constructor() {
+    super();
+    this.state = {
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
       }
-      this.onRegionChange(region, region.latitude, region.longitude);
-    });
+    };
   }
-
-  onRegionChange(region, lastLat, lastLong) {
-    this.setState({
-      mapRegion: region,
-      // If there are no new values set use the the current ones
-      lastLat: lastLat || this.state.lastLat,
-      lastLong: lastLong || this.state.lastLong
-    });
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }
+        });
+      },
+    (error) => console.log(error.message),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+    this.watchID = navigator.geolocation.watchPosition(
+      position => {
+        this.setState({
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }
+        });
+      }
+    );
   }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  onMapPress(e) {
-    console.log(e.nativeEvent.coordinate.longitude);
+  onMapPress(event) {
+    console.log(event.nativeEvent.coordinate.longitude);
     let region = {
-      latitude:       e.nativeEvent.coordinate.latitude,
-      longitude:      e.nativeEvent.coordinate.longitude,
+      latitude:       event.nativeEvent.coordinate.latitude,
+      longitude:      event.nativeEvent.coordinate.longitude,
       latitudeDelta:  0.00922*1.5,
       longitudeDelta: 0.00421*1.5
     }
-    this.onRegionChange(region, region.latitude, region.longitude);
+    this.setState({region})
   }
-
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
   render() {
     return (
-      <View style={{flex: 1}}>
-        <MapView
-          style={styles.map}
-          region={this.state.mapRegion}
-          showsUserLocation={true}
-          followUserLocation={true}
-          onRegionChange={this.onRegionChange.bind(this)}
-          onPress={this.onMapPress.bind(this)}>
-          <Marker
-            coordinate={{
-              latitude: (this.state.lastLat + 0.00050) || -36.82339,
-              longitude: (this.state.lastLong + 0.00050) || -73.03569,
-            }}/>
+      
+      <Container >
 
-        </MapView>
-      </View>
+        <MapView
+        provider={ PROVIDER_GOOGLE }
+        style={ styles.container }
+        customMapStyle={ RetroMapStyles }
+        showsUserLocation={ true }
+        region={ this.state.region }
+        onRegionChange={ region => this.setState({region}) }
+        onRegionChangeComplete={ region => this.setState({region}) }
+        onPress={(event)=>this.onMapPress(event)}
+      >
+        <MapView.Marker
+          coordinate={ this.state.region }
+        />
+      </MapView>
+      <Callout>
+    <View style={styles.calloutView} >
+      <TextInput style={styles.calloutSearch}
+        placeholder={"Search"}
+      />
+    </View>
+  </Callout>
+      </Container>
     );
   }
 }
-
 const styles = StyleSheet.create({
-  map: {
-    ...StyleSheet.absoluteFillObject,
+  container: {
+    height: '100%',
+    width: '100%',
+  },
+  calloutView: {
+    flexDirection: "row",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 10,
+    width: "40%",
+    marginLeft: "30%",
+    marginRight: "30%",
+    marginTop: 20
+  },
+  calloutSearch: {
+    borderColor: "transparent",
+    marginLeft: 10,
+    width: "90%",
+    marginRight: 10,
+    height: 40,
+    borderWidth: 0.0  
   }
 });
-
-AppRegistry.registerComponent('testCoords', () => testCoords);
+AppRegistry.registerComponent('MapExample', () => MapExample);
