@@ -3,8 +3,7 @@ import { BottomNavigation, Text } from 'react-native-paper';
 import DriverScreen from './DriverScreen'
 import Settings from './Settings';
 import { withNavigation } from 'react-navigation';
-
-const Maps = () => <Text>Maps</Text>;
+import GoogleMaps from './googleMaps/GoogleMaps';
 
 const support = () => <Text>support</Text>;
 
@@ -23,7 +22,7 @@ const support = () => <Text>support</Text>;
 
   _renderScene = BottomNavigation.SceneMap({
     Home: DriverScreen,
-    Maps: Maps,
+    Maps: GoogleMaps,
     Settings: Settings,
     support:support
   });
