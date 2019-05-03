@@ -122,7 +122,7 @@ export default class MapExample extends Component {
                   latitudeDelta: LATITUDE_DELTA,
                   longitudeDelta: LONGITUDE_DELTA,
                 },
-                listView:!this.state.listView
+                listView:false
               })
               
             }}

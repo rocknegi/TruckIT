@@ -40,8 +40,8 @@ export default class ManagerLogin extends Component {
                     </Form>
                 </Content>
                 <Footer>
-                    <FooterTab>
-                        <Button full warning><Text style={{color:'#fff',fontWeight:'bold'}}>Dont have an account?</Text></Button>
+                    <FooterTab >
+                        <Button full warning><Text style={{color:'#fff',fontWeight:'bold'}} onPress={()=>this.props.navigation.navigate('Signup')}>Dont have an account?</Text></Button>
                     </FooterTab>
 
                 </Footer>

@@ -5,11 +5,14 @@ import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
 import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 import { withNavigation } from 'react-navigation';
+import firebase from 'react-native-firebase';
 
  class DriverLogin extends Component {
 
     state = {
-        isSigninInProgress: false
+        isSigninInProgress: false,
+        email:'',
+        pass:''
     }
     componentDidMount() {
 
@@ -31,6 +34,9 @@ import { withNavigation } from 'react-navigation';
         } catch (e) {
             Alert.alert("" + e)
         }
+    }
+    _login = ()=>{
+
     }
     render() {
         return (
@@ -54,14 +60,14 @@ import { withNavigation } from 'react-navigation';
 
                         <Form>
                             <Item floatingLabel>
-                                <Label>Username</Label>
-                                <Input />
+                                <Label>Email</Label>
+                                <Input onChangeText ={email=>this.setState({email})}/>
                             </Item>
                             <Item floatingLabel last>
                                 <Label>Password</Label>
-                                <Input />
+                                <Input onChangeText ={pass=>this.setState({pass})}/>
                             </Item>
-                            <Button full style={{ margin: 20, borderRadius: 20 }} danger>
+                            <Button full style={{ margin: 20, borderRadius: 20 }} danger onPress={this._login}>
                                 <Text>Login</Text>
                             </Button>
                             <GoogleSigninButton
@@ -74,7 +80,7 @@ import { withNavigation } from 'react-navigation';
                     </Content>
                     <Footer>
                         <FooterTab>
-                            <Button full style={{ backgroundColor: '#00695c' }}><Text style={{ color: '#fff', fontWeight: 'bold' }}>Dont have an account?</Text></Button>
+                            <Button full style={{ backgroundColor: '#00695c' }}><Text style={{ color: '#fff', fontWeight: 'bold' }} onPress={()=>this.props.navigation.navigate('Signup')}>Dont have an account?</Text></Button>
                         </FooterTab>
 
                     </Footer>
