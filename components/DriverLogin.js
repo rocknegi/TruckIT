@@ -7,12 +7,12 @@ import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 import { withNavigation } from 'react-navigation';
 import firebase from 'react-native-firebase';
 
- class DriverLogin extends Component {
+class DriverLogin extends Component {
 
     state = {
         isSigninInProgress: false,
-        email:'',
-        pass:''
+        email: '',
+        pass: ''
     }
     componentDidMount() {
 
@@ -20,8 +20,8 @@ import firebase from 'react-native-firebase';
             webClientId: '976432902054-72jg8hkmkqr5vooo38c3tejn4sch4rga.apps.googleusercontent.com'
         });
     }
-    _next = ()=>{
-        this.props.navigation.navigate('driverScreenLayout');
+    _next = () => {
+        this.props.navigation.navigate('driverScreenLayout')
     }
 
     _googleSignIn = async () => {
@@ -35,7 +35,17 @@ import firebase from 'react-native-firebase';
             Alert.alert("" + e)
         }
     }
-    _login = ()=>{
+    _login = () => {
+        if (this.state.email === '' || this.state.pass === '') {
+            alert('Please enter both email and pass')
+        }
+        else {
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(this.state.email, this.state.pass)
+                .then(this._next)
+                .catch(error => alert(error))
+        }
 
     }
     render() {
@@ -61,17 +71,17 @@ import firebase from 'react-native-firebase';
                         <Form>
                             <Item floatingLabel>
                                 <Label>Email</Label>
-                                <Input onChangeText ={email=>this.setState({email})}/>
+                                <Input onChangeText={email => this.setState({ email })} />
                             </Item>
                             <Item floatingLabel last>
                                 <Label>Password</Label>
-                                <Input onChangeText ={pass=>this.setState({pass})}/>
+                                <Input onChangeText={pass => this.setState({ pass })} />
                             </Item>
                             <Button full style={{ margin: 20, borderRadius: 20 }} danger onPress={this._login}>
                                 <Text>Login</Text>
                             </Button>
                             <GoogleSigninButton
-                                style={{ width: '80%', height: 48,marginLeft:35,borderRadius: 20  }}
+                                style={{ width: '80%', height: 48, marginLeft: 35, borderRadius: 20 }}
                                 size={GoogleSigninButton.Size.Wide}
                                 color={GoogleSigninButton.Color.light}
                                 onPress={this._googleSignIn}
@@ -80,7 +90,7 @@ import firebase from 'react-native-firebase';
                     </Content>
                     <Footer>
                         <FooterTab>
-                            <Button full style={{ backgroundColor: '#00695c' }}><Text style={{ color: '#fff', fontWeight: 'bold' }} onPress={()=>this.props.navigation.navigate('Signup')}>Dont have an account?</Text></Button>
+                            <Button full style={{ backgroundColor: '#00695c' }}><Text style={{ color: '#fff', fontWeight: 'bold' }} onPress={() => this.props.navigation.navigate('Signup')}>Dont have an account?</Text></Button>
                         </FooterTab>
 
                     </Footer>
