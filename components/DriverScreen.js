@@ -10,7 +10,7 @@ class DriverScreen extends Component {
                
                <Header hasTabs>
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={()=>this.props.navigation.goBack()}>
                             <Icon name='arrow-back' />
                         </Button>
                     </Left>

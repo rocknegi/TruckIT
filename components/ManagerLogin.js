@@ -14,7 +14,7 @@ export default class ManagerLogin extends Component {
                     <Header span style={{backgroundColor:'#4dd0e1'}}>
                     <StatusBar backgroundColor="#0097a7"/>
                         <Left>
-                            <Button transparent>
+                            <Button transparent onPress={()=>this.props.navigation.goBack()}>
                                 <Icon name='arrow-back' />
                             </Button>
                         </Left>

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: '#9575cd',
     paddingVertical: 15,
-    marginTop: 155,
+    marginTop: '38%',
     flexDirection: "row",
     justifyContent: 'space-between',
     width: "100%",

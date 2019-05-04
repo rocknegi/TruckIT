@@ -28,7 +28,7 @@ export default class Signup extends Component {
                 <Header span style={{ backgroundColor: '#00897b' }}>
                     <StatusBar backgroundColor="#00695c" />
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={()=>this.props.navigation.goBack()}>
                             <Icon name='arrow-back' />
                         </Button>
                     </Left>
