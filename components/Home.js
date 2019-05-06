@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,StyleSheet,StatusBar } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import RotatingEarth from './RotatingEarth';
 import { Container, Content, StyleProvider, Button, Text, Footer, FooterTab } from 'native-base';
 import getTheme from '../native-base-theme/components';
@@ -15,26 +15,27 @@ export default class Home extends Component {
       <StyleProvider style={getTheme(material)}>
         <Container>
           <Content>
-          <StatusBar backgroundColor="#000"/>
+            <StatusBar backgroundColor="#1976D2" />
             <RotatingEarth />
-            <Text style={{fontSize:30,fontWeight:'bold',margin:40}}>
-              Heavy Duty Vehical Assistant
+            <Text style={{ fontSize: 30, fontWeight: 'bold', margin: 40 }}>
+              Heavy Duty Vehicle Assistant
             </Text>
-
           </Content>
-          <Footer style={styles.buttonContainer}>
-    
-         <Animatable.View animation='bounceInRight' delay={500} style={styles.buttons}>
-            <Button  style={{backgroundColor:'#f4511e'}} onPress={()=>this.props.navigation.navigate('driverLogin')}>
-              <Text style={{fontSize:15}}> Driver   </Text>
-            </Button>
-           </Animatable.View>
-           <Animatable.View animation='bounceInLeft' delay={500} style={styles.buttons}>
-            <Button  style={{backgroundColor:'#f4511e'}}  onPress={()=>this.props.navigation.navigate('managerLogin')}>
-              <Text style={{fontSize:15}}>Manager</Text>
-            </Button>
-           </Animatable.View>
-  
+          <Footer >
+            <FooterTab style={styles.buttonContainer}>
+              <Animatable.View animation='bounceInRight' delay={500} style={styles.buttons}>
+                <Button small style={{ backgroundColor: '#f4511e' }} onPress={() => this.props.navigation.navigate('driverLogin')}>
+                  <Text style={styles.text}> Driver   </Text>
+                </Button>
+              </Animatable.View>
+            </FooterTab>
+            <FooterTab  style={styles.buttonContainer}>
+              <Animatable.View animation='bounceInLeft' delay={500} style={styles.buttons}>
+                <Button small style={{ backgroundColor: '#f4511e' }} onPress={() => this.props.navigation.navigate('managerLogin')}>
+                  <Text style={styles.text}>Manager</Text>
+                </Button>
+              </Animatable.View>
+            </FooterTab>
           </Footer>
         </Container>
       </StyleProvider>
@@ -43,17 +44,18 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+  text:{
+    fontSize: 15 , 
+    color:'#fff'
+  },
   buttonContainer: {
     backgroundColor: '#9575cd',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
   },
-  buttons:{
+  buttons: {
     color: '#e53935',
     borderRadius: 3,
-    textAlign: 'center',
-    marginTop:23,
+    marginTop: 8,
     marginBottom: 8,
-    marginRight: 8,
-    marginLeft: 8,
   }
 })

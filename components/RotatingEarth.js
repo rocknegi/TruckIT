@@ -20,8 +20,8 @@ export default class RotatingEarth extends React.Component {
 
   render() {
     return (
-      <LottieView style={{backgroundColor:'#3490dc',width:'100%'}} source={require('../assets/animations/1055-world-locations.json')} 
-      loop={false} autoSize autoPlay={true}
+      <LottieView style={{backgroundColor:'#2196F3',width:'100%'}} source={require('../assets/animations/1055-world-locations.json')} 
+      loop={true} autoSize autoPlay={true}
       />
     );
   }

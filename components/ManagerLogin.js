@@ -11,8 +11,8 @@ export default class ManagerLogin extends Component {
             <Container>
                 <Content>
                 
-                    <Header span style={{backgroundColor:'#4dd0e1'}}>
-                    <StatusBar backgroundColor="#0097a7"/>
+                    <Header span style={{backgroundColor:'#00BCD4'}}>
+                    <StatusBar backgroundColor="#0097A7"/>
                         <Left>
                             <Button transparent onPress={()=>this.props.navigation.goBack()}>
                                 <Icon name='arrow-back' />
@@ -40,8 +40,8 @@ export default class ManagerLogin extends Component {
                     </Form>
                 </Content>
                 <Footer>
-                    <FooterTab >
-                        <Button full warning><Text style={{color:'#fff',fontWeight:'bold'}} onPress={()=>this.props.navigation.navigate('Signup')}>Dont have an account?</Text></Button>
+                    <FooterTab>
+                        <Button full style={{backgroundColor:'#03A9F4'}}><Text style={{color:'#fff',fontWeight:'bold'}} onPress={()=>this.props.navigation.navigate('Signup')}>Dont have an account?</Text></Button>
                     </FooterTab>
 
                 </Footer>
