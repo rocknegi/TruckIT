@@ -29,7 +29,7 @@ class DriverLogin extends Component {
             await GoogleSignin.signIn();
             const currentUser = await GoogleSignin.getCurrentUser();
             // const token = currentUser.accessToken
-            Alert.alert('hello');
+            // Alert.alert('hello');
             this._next();
         } catch (e) {
             Alert.alert("" + e)

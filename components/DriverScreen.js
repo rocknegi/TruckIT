@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { Container, Content, Header, Tabs, Icon, Tab, TabHeading, Left, Body, Right,Button, Footer } from 'native-base';
 import { withNavigation } from 'react-navigation';
+import Firebase_Databse from './Firebase_Databse';
 
 class DriverScreen extends Component {
     render() {
@@ -24,7 +25,7 @@ class DriverScreen extends Component {
 
                 <Tabs>
                     <Tab heading={<TabHeading><Icon type='AntDesign' name='pluscircleo' /></TabHeading>}>
-
+                    <Firebase_Databse />
                     </Tab>
                     <Tab heading={<TabHeading><Icon name="apps" /></TabHeading>}></Tab>
                     <Tab heading='Tab 3'/>
