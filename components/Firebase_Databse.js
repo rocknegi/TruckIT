@@ -5,6 +5,7 @@ import firebase from 'react-native-firebase';
 import reactotron from 'reactotron-react-native';
 import { Button } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 
  class Firebase_Databse extends Component {
     state = {
@@ -16,13 +17,22 @@ import { withNavigation } from 'react-navigation';
     componentDidMount() {
         this._retrieveData();
     }
-
+    storeData = async (user_key) => {
+        try {
+          await AsyncStorage.setItem('key', user_key)
+        } catch (e) {
+          reactotron.log(e)
+        }
+      }
     _retrieveData = () => {
         const user_key = firebase.database().ref('Driver/').push({
             assigned: 0,
         }).key;
       this._getUserDetails();
-        this.setState({ user_key }, () => reactotron.log("user_key:" + this.state.user_key))
+        this.setState({ user_key }, () => {
+            reactotron.log("user_key:" + this.state.user_key)
+            this.storeData(this.state.user_key)
+        })
     }
     _getUserDetails = async()=>{
         var user = firebase.auth().currentUser;

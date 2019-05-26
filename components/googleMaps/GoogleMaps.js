@@ -6,6 +6,8 @@ import { Container } from 'native-base';
 import MapViewDirections from 'react-native-maps-directions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import reactotron from 'reactotron-react-native';
+import firebase from 'react-native-firebase';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const LATITUDE = 0;
 const LONGITUDE = 0;
@@ -19,6 +21,7 @@ export default class MapExample extends Component {
   constructor() {
     super();
     this.state = {
+      key:null,
       destination:
       {
         latitude: destination_lat,
@@ -37,6 +40,19 @@ export default class MapExample extends Component {
 
   }
   componentDidMount() {
+   
+this.getData()
+  }
+
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('key')
+      if(value !== null) {
+        this.setState({key:value},()=>alert(this.state.key))
+      }
+    } catch(e) {
+     alert( '// error reading value')
+    }
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -60,12 +76,17 @@ export default class MapExample extends Component {
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA,
           }
+        },()=>{
+          firebase.database().ref(`location/${this.state.key}`).push({
+            latitude:this.state.region.latitude,
+            longitude:this.state.region.longitude
+        })
         });
       }
 
     );
-
   }
+
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
