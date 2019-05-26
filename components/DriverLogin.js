@@ -19,6 +19,11 @@ class DriverLogin extends Component {
         GoogleSignin.configure({
             webClientId: '976432902054-72jg8hkmkqr5vooo38c3tejn4sch4rga.apps.googleusercontent.com'
         });
+        const user = firebase.auth().currentUser;
+        if(user) {
+            this.props.navigation.navigate('driverScreenLayout');
+        }
+
     }
     _next = () => {
         this.props.navigation.navigate('driverScreenLayout')

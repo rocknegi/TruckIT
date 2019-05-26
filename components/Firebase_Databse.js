@@ -4,11 +4,13 @@ import { Container, Content } from 'native-base';
 import firebase from 'react-native-firebase';
 import reactotron from 'reactotron-react-native';
 import { Button } from 'react-native-paper';
+import { withNavigation } from 'react-navigation';
 
-export default class Firebase_Databse extends Component {
+ class Firebase_Databse extends Component {
     state = {
         user_key: null,
-        managerName: []
+        managerName: [],
+        userName:''
     }
 
     componentDidMount() {
@@ -19,8 +21,12 @@ export default class Firebase_Databse extends Component {
         const user_key = firebase.database().ref('Driver/').push({
             assigned: 0,
         }).key;
-
+      this._getUserDetails();
         this.setState({ user_key }, () => reactotron.log("user_key:" + this.state.user_key))
+    }
+    _getUserDetails = async()=>{
+        var user = firebase.auth().currentUser;
+        this.setState({userName:user.displayName})
     }
 
     _shareKey = async () => {
@@ -45,13 +51,24 @@ export default class Firebase_Databse extends Component {
     }
 
     _checkAssigned = () => {
-        firebase.database().ref(`Manager/rohanc/${this.state.user_key}`).on('value', (data) => {
+        firebase.database().ref(`Driver/${this.state.user_key}`).on('value', (data) => {
             this.setState({ managerName: data.val() }, () => {
                 reactotron.log(JSON.stringify(this.state.managerName))
             })
-            if (this.state.managerName.assigned === '1') {
-
-             }
+            try{
+                if (this.state.managerName.assigned) {
+                    this.props.navigation.navigate('DriverDetails',{
+                        key:this.state.user_key
+                    })
+                 }
+                 else {
+                     alert('wait for your manager to enter your token')
+                 }
+            }
+            catch(e){
+                alert(e)
+            }
+          
 
         });
     }
@@ -59,6 +76,9 @@ export default class Firebase_Databse extends Component {
         return (
             <Container>
                 <Content>
+                    <Text>
+                        welcome {this.state.userName}
+                    </Text>
                     <Button style={styles.button} icon="share" mode="Outlined button" onPress={this._shareKey}>
                         <Text>Share your code</Text>
                     </Button>
@@ -80,3 +100,4 @@ const styles = StyleSheet.create({
         marginBottom: 50
     }
 })
+export default withNavigation(Firebase_Databse)

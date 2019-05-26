@@ -10,6 +10,7 @@ import DriverScreen from "./components/DriverScreen";
 import BottomNavigationBar from "./components/BottomNavigationBar";
 import DriverScreenLayout from "./components/DriverScreenLayout";
 import Signup from "./components/Signup";
+import DriverDetails from "./components/DriverDetails";
 
 
 const AppNavigator = createStackNavigator({
@@ -19,7 +20,8 @@ const AppNavigator = createStackNavigator({
   driverScreen:DriverScreen,
   bottomNavigationBar:BottomNavigationBar,
   driverScreenLayout:DriverScreenLayout,
-  Signup:Signup
+  Signup:Signup,
+  DriverDetails:DriverDetails
 
 
 },{
