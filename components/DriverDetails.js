@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StatusBar, Text, View } from 'react-native'
+import { StatusBar, Text, StyleSheet } from 'react-native'
 import { Container, Content, Header, Left, Button, Icon, Title, Right, Body, List, ListItem } from 'native-base';
 import firebase from 'react-native-firebase';
 import reactotron from 'reactotron-react-native';
@@ -64,58 +64,59 @@ export default class DriverDetails extends Component {
 
                     <List>
                         <ListItem>
-                            <Text>Name</Text>
+                            <Text style={styles.text}>Name</Text>
                             <Body />
                             <Right>
-                                <Text>{this.state.Name}</Text>
+                                <Text style={styles.text}>{this.state.Name}</Text>
                             </Right>
                         </ListItem>
                         <ListItem>
-                            <Text>Toll Cost</Text>
+                            <Text style={styles.text}>Toll Cost</Text>
                             <Body />
                             <Right>
-                                <Text>{this.state.TollCost}</Text>
+                                <Text style={styles.text}>{this.state.TollCost}</Text>
                             </Right>
                         </ListItem>
                         <ListItem>
-                            <Text>Car Number</Text>
+                            <Text style={styles.text}>Car Number</Text>
                             <Body />
                             <Right>
-                                <Text>{this.state.carnumber}</Text>
+                                <Text style={styles.text}>{this.state.carnumber}</Text>
                             </Right>
                         </ListItem>
                         <ListItem>
-                            <Text>Destination</Text>
+                            <Text style={styles.text}>Destination</Text>
                             <Body />
                             <Right>
-                                <Text>{this.state.destination}</Text>
+                                <Text style={styles.text}>{this.state.destination}</Text>
                             </Right>
                         </ListItem>
                         <ListItem>
-                            <Text>Mobile No</Text>
+                            <Text style={styles.text}>Mobile No</Text>
                             <Body />
                             <Right>
-                                <Text>{this.state.mobilenumber}</Text>
-                            </Right>
-                        </ListItem>
-                        <ListItem><Text>On Trip</Text>
-                            <Body />
-                            <Right>
-                                <Text>{this.state.ontrip}</Text>
+                                <Text style={styles.text}>{this.state.mobilenumber}</Text>
                             </Right>
                         </ListItem>
                         <ListItem>
-                            <Text>Start</Text>
+                            <Text style={styles.text}>On Trip</Text>
                             <Body />
                             <Right>
-                                <Text>{this.state.start}</Text>
+                                <Text style={styles.text}>{this.state.ontrip}</Text>
                             </Right>
                         </ListItem>
                         <ListItem>
-                            <Text>Vehicle Type</Text>
+                            <Text style={styles.text}>Start</Text>
                             <Body />
                             <Right>
-                                <Text>{this.state.vehicleType}</Text>
+                                <Text style={styles.text}>{this.state.start}</Text>
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Text style={styles.text}>Vehicle Type</Text>
+                            <Body />
+                            <Right>
+                                <Text style={styles.text}>{this.state.vehicleType}</Text>
                             </Right>
                         </ListItem>
                     </List>
@@ -124,3 +125,8 @@ export default class DriverDetails extends Component {
         )
     }
 }
+const styles = StyleSheet.create({
+    text:{
+        fontSize:16
+    }
+})

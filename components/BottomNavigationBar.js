@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { BackHandler,Alert } from 'react-native';
 import { BottomNavigation, Text } from 'react-native-paper';
 import DriverScreen from './DriverScreen'
 import Settings from './Settings';
@@ -8,6 +9,32 @@ import GoogleMaps from './googleMaps/GoogleMaps';
 const support = () => <Text>support</Text>;
 
  class BottomNavigationBar extends React.Component {
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+  
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  }
+  onBackPress = () => {
+    if (this.props.navigation.isFocused()) {
+       Alert.alert(
+         'Confirm exit',
+         'Do you want to exit App?',
+         [
+           {text: 'CANCEL', style: 'cancel'},
+           {text: 'OK', onPress: () => {
+             BackHandler.exitApp()
+            }
+          }
+         ]
+      );
+      return true
+    } 
+    else {
+      return false;
+    }
+  }
   state = {
     index: 0,
     routes: [

@@ -66,7 +66,7 @@ import AsyncStorage from '@react-native-community/async-storage';
                 reactotron.log(JSON.stringify(this.state.managerName))
             })
             try{
-                if (this.state.managerName.assigned) {
+                if (!this.state.managerName.assigned) {
                     this.props.navigation.navigate('DriverDetails',{
                         key:this.state.user_key
                     })
@@ -85,16 +85,16 @@ import AsyncStorage from '@react-native-community/async-storage';
     render() {
         return (
             <Container>
-                <Content>
-                    <Text>
+                <Content style={styles.container}>
+                    <Text style={styles.welcomeText}>
                         welcome {this.state.userName}
                     </Text>
-                    <Button style={styles.button} icon="share" mode="Outlined button" onPress={this._shareKey}>
-                        <Text>Share your code</Text>
+                    <Button style={styles.button} icon="share" color="" mode="Text button" onPress={this._shareKey}>
+                        <Text style={styles.buttonText}>Share your code</Text>
                     </Button>
 
-                    <Button style={styles.button} icon="check-box" mode="Outlined button" onPress={this._checkAssigned}>
-                        <Text>Check</Text>
+                    <Button style={styles.button} icon="check-box" color="" mode="Text button" onPress={this._checkAssigned}>
+                        <Text style={styles.buttonText}>Check</Text>
                     </Button>
 
                 </Content>
@@ -105,9 +105,19 @@ import AsyncStorage from '@react-native-community/async-storage';
 }
 
 const styles = StyleSheet.create({
+    container:{
+        paddingTop:50
+    },
     button: {
         marginTop: 20,
-        marginBottom: 50
+    },
+    welcomeText:{
+        textAlign: 'center',
+        fontSize:20,
+        marginTop:20
+    },
+    buttonText:{
+        fontSize:20
     }
 })
 export default withNavigation(Firebase_Databse)
