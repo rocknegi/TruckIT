@@ -26,12 +26,13 @@ class DriverLogin extends Component {
 
     _googleSignIn = async () => {
         try {
-            await GoogleSignin.signIn();
-            const currentUser = await GoogleSignin.getCurrentUser();
-            // const token = currentUser.accessToken
-            // Alert.alert('hello');
+            await GoogleSignin.configure();
+            const data = await GoogleSignin.signIn();
+            const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
+           // const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
+        
             this._next();
-        } catch (e) {
+          } catch (e) {
             Alert.alert("" + e)
         }
     }
