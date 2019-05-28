@@ -33,7 +33,3 @@ allprojects {
         }
     }
 }
-wrapper {
-    gradleVersion = '4.7'
-    distributionUrl = distributionUrl.replace("bin", "all")
-}
