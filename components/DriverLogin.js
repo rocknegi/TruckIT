@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StatusBar, Alert } from 'react-native'
+import { StatusBar, ToastAndroid } from 'react-native'
 import { Container, Content, Header, Left, Button, Icon, Title, Right, Form, Label, Item, Footer, FooterTab, Body, Input, Text, StyleProvider } from 'native-base';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
@@ -8,39 +8,50 @@ import { withNavigation } from 'react-navigation';
 import firebase from 'react-native-firebase';
 
 class DriverLogin extends Component {
-
+    
+    
     state = {
         isSigninInProgress: false,
         email: '',
         pass: ''
     }
     componentDidMount() {
-
+        const { navigate } = this.props.navigation;
         GoogleSignin.configure({
             webClientId: '976432902054-72jg8hkmkqr5vooo38c3tejn4sch4rga.apps.googleusercontent.com'
         });
-        const user = firebase.auth().currentUser;
-        if(user) {
-            this.props.navigation.navigate('driverScreenLayout');
-        }
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                navigate('driverScreenLayout');
+            } else {
+            }
+          });
 
     }
     _next = () => {
         this.props.navigation.navigate('driverScreenLayout')
     }
 
+
     _googleSignIn = async () => {
         try {
-            await GoogleSignin.configure();
-            const data = await GoogleSignin.signIn();
-            const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
-           // const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
-        
-            this._next();
-          } catch (e) {
-            Alert.alert("" + e)
+          const data = await GoogleSignin.signIn();
+          const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
+          const userCredentials = await firebase.auth().signInWithCredential(credential);
+           
+          if(!userCredentials.additionalUserInfo.isNewUser){
+            ToastAndroid.show('Welcome Back',ToastAndroid.SHORT);
+          } else {
+            ToastAndroid.show('Hello New Driver',ToastAndroid.SHORT);
+          }
+    
+          this._next();
+        } catch (e) {
+         alert(e);
         }
-    }
+    
+      }
     _login = () => {
         if (this.state.email === '' || this.state.pass === '') {
             alert('Please enter both email and pass')

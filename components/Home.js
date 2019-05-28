@@ -6,8 +6,9 @@ import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
 import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-community/async-storage';
+import { withNavigation } from 'react-navigation';
 
-export default class Home extends Component {
+ class Home extends Component {
 
   render() {
 
@@ -59,3 +60,4 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   }
 })
+export default withNavigation(Home)

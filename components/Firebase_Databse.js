@@ -66,7 +66,7 @@ import AsyncStorage from '@react-native-community/async-storage';
                 reactotron.log(JSON.stringify(this.state.managerName))
             })
             try{
-                if (!this.state.managerName.assigned) {
+                if (this.state.managerName.assigned) {
                     this.props.navigation.navigate('DriverDetails',{
                         key:this.state.user_key
                     })

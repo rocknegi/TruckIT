@@ -3,19 +3,13 @@ import { Text, Alert } from 'react-native'
 import { Container, Content, Button, Right,Icon ,Left,Body,Header} from 'native-base';
 import { GoogleSignin} from 'react-native-google-signin';
 import { withNavigation } from 'react-navigation';
-
+import firebase from 'react-native-firebase';
  class Settings extends Component {
     
-    _logout=async()=>{
-       
-        try {
-          await GoogleSignin.revokeAccess();
-          await GoogleSignin.signOut();
-        } catch (error) {
-          Alert.alert(error);
-        }
-
-        this.props.navigation.navigate('home');
+    _logout=()=>{
+        firebase.auth().signOut().then(()=>{
+            this.props.navigation.navigate('home')
+        })
 
   }
   render() {
